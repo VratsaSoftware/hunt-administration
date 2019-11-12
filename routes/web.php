@@ -23,8 +23,13 @@ Route::get('/games', function () {
     return view('games');
 });
 
-Route::post('/games', 'FirebaseController@index');
-
+Route::post('/games', 'FirebaseContriller@index');
+Route::post('/teams', 'FirebaseContriller@teams');
+Route::post('/users', 'FirebaseContriller@users');
+Route::get('/games', 'FirebaseContriller@index')->name('games');
+Route::get('/teams', 'FirebaseContriller@teams')->name('teams');
+Route::get('/users', 'FirebaseContriller@users')->name('users');
 Route::get('my-home', 'HomeController@myHome');
 
 Route::get('my-users', 'HomeController@myUsers');
+
