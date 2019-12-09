@@ -12,7 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
+});
+
+Route::get('/login', function() {
+    return view('login');
 });
 
 Route::get('/teams', function () {
