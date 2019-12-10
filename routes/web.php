@@ -33,6 +33,8 @@ Route::post('/users', 'FirebaseContriller@users');
 Route::get('/games', 'FirebaseContriller@index')->name('games');
 Route::get('/teams', 'FirebaseContriller@teams')->name('teams');
 Route::get('/users', 'FirebaseContriller@users')->name('users');
+Route::get('/games/create', 'FirebaseContriller@create')->name('games.create');
+Route::get('/gamesupdate', 'FirebaseContriller@update')->name('update');
 Route::get('my-home', 'HomeController@myHome');
 
 Route::get('my-users', 'HomeController@myUsers');
