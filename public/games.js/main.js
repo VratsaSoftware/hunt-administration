@@ -69,33 +69,17 @@
 
         gameStory.textContent = game.gameStoryDetails;
 
-        var helpLink = doc.createElement('a');
-
-        helpLink.href = game.helpLink;
-
-        helpLink.textContent = 'Help link';
-
-        helpLinkUrl.appendChild(helpLink);
+        helpLinkUrl.href = game.helpLink;
 
         helpNumber.textContent = game.helpNumber;
 
-        var mapLink = doc.createElement('a');
-
-        mapLink.href = game.mapUrl;
-        
-        mapLink.textContent = 'Map url';
-
-        mapLinkUrl.appendChild(mapLink);
+        mapLinkUrl.href = game.mapUrl;
 
         maxPlayers.textContent = game.maxPlayers;
 
         minPlayers.textContent = game.minPlayers;
 
-        var startImg = doc.createElement('img');
-
-        startImg.src = game.startImageUrl;
-
-        startImageUrl.appendChild(startImg);
+        startImageUrl.href = game.startImageUrl;
 
         startPassword.textContent = game.startPassword;
 
@@ -123,6 +107,14 @@
 
         actions.appendChild(editBtn);
         actions.appendChild(deleteBtn);
+
+        var manageChaptersLink = doc.createElement('a');
+
+        manageChaptersLink.textContent = 'Manage chapters';
+        
+        manageChaptersLink.href = '/chapters#' + key;
+
+        actions.appendChild(manageChaptersLink);
 
         tr.appendChild(gameName);
         tr.appendChild(coverImgUrl);
@@ -152,227 +144,44 @@
     }
 
     function updateGame(key, game){
-        var node = doc.querySelector('[data-key="' + key + '"]');
+        var node = doc.querySelector('div[data-key="' + key + '"]');
 
-        node.remove();
-
-        var tr = doc.createElement('tr'),
-            gameName = doc.createElement('td'),
-            coverImgUrl = doc.createElement('td'),
-            gameEnd = doc.createElement('td'),
-            gameStory = doc.createElement('td'),
-            helpLinkUrl = doc.createElement('td'),
-            helpNumber = doc.createElement('td'),
-            mapLinkUrl = doc.createElement('td'),
-            maxPlayers = doc.createElement('td'),
-            minPlayers = doc.createElement('td'),
-            startImageUrl = doc.createElement('td'),
-            startPassword = doc.createElement('td'),
-            gameStart = doc.createElement('td'),
-            actions = doc.createElement('td');
-
-        tr.setAttribute('data-key', key);
-
+        var gameName = node.querySelector('.game_name'),
+            coverImgUrl =  node.querySelector('.cover_image'),
+            gameEnd =  node.querySelector('.game_end'),
+            gameStory =  node.querySelector('.game_story'),
+            helpLinkUrl =  node.querySelector('.help_link'),
+            helpNumber =  node.querySelector('.help_number'),
+            mapLinkUrl =  node.querySelector('.map_link'),
+            maxPlayers =  node.querySelector('.max_players'),
+            minPlayers =  node.querySelector('.min_players'),
+            startImageUrl =  node.querySelector('.start_img_link'),
+            startPassword =  node.querySelector('.start_password'),
+            gameStart =  node.querySelector('.game_start');
+        
         gameName.textContent = game.name;
-        
-        var coverImg = doc.createElement('img');
 
-        coverImg.src = game.coverImageUrl;
-
-        coverImgUrl.appendChild(coverImg);
-
+        coverImgUrl.src = game.coverImageUrl;
+    
         gameEnd.textContent = (new Date(game.endTimestamp)).toString();
-
+    
         gameStory.textContent = game.gameStoryDetails;
-
-        var helpLink = doc.createElement('a');
-
-        helpLink.href = game.helpLink;
-
-        helpLink.textContent = 'Help link';
-
-        helpLinkUrl.appendChild(helpLink);
-
+    
+        helpLinkUrl.href = game.helpLink;
+    
         helpNumber.textContent = game.helpNumber;
-
-        var mapLink = doc.createElement('a');
-
-        mapLink.href = game.mapUrl;
-        
-        mapLink.textContent = 'Map url';
-
-        mapLinkUrl.appendChild(mapLink);
-
+    
+        mapLinkUrl.href = game.mapUrl;
+    
         maxPlayers.textContent = game.maxPlayers;
-
+    
         minPlayers.textContent = game.minPlayers;
-
-        var startImg = doc.createElement('img');
-
-        startImg.src = game.startImageUrl;
-
-        startImageUrl.appendChild(startImg);
-
+    
+        startImageUrl.href = game.startImageUrl;
+    
         startPassword.textContent = game.startPassword;
-
+    
         gameStart.textContent = (new Date(game.startTimestamp)).toString();
-
-        var deleteBtn = doc.createElement('button'),
-            editBtn = doc.createElement('button');
-
-        deleteBtn.textContent = 'Delete';
-
-        editBtn.textContent = 'Edit';
-
-        editBtn.setAttribute('data-popupname', 'edit-game');
-
-        editBtn.addEventListener('click', e => {
-            populatePopUp(e);
-            openPopUp(e);
-        });
-
-        actions.appendChild(editBtn);
-        actions.appendChild(deleteBtn);
-
-        tr.appendChild(gameName);
-        tr.appendChild(coverImgUrl);
-        tr.appendChild(gameEnd);
-        tr.appendChild(gameStory);
-        tr.appendChild(helpLinkUrl);
-        tr.appendChild(helpNumber);
-        tr.appendChild(mapLinkUrl);
-        tr.appendChild(maxPlayers);
-        tr.appendChild(minPlayers);
-        tr.appendChild(startImageUrl);
-        tr.appendChild(startPassword);
-        tr.appendChild(gameStart);
-        tr.appendChild(actions);
-
-        gamesTable.insertBefore(tr, gamesTable.childNodes[2]);
-    }
-
-    function appendUser(key, user){
-        var tr = doc.createElement('tr'),
-            username = doc.createElement('td'),
-            email = doc.createElement('td'),
-            age = doc.createElement('td'),
-            teams = doc.createElement('td'),
-            progress = doc.createElement('td'),
-            phone = doc.createElement('td');
-
-        tr.setAttribute('data-key', key);
-
-        username.textContent = user.name;
-        age.textContent = user.age;
-        email.textContent = user.email;
-        phone.textContent = user.phone;
-        //teams.textContent = JSON.stringify(user.teams);
-        //progress.textContent = JSON.stringify(user.progress);
-
-        if(typeof user.teams !== 'undefined'){
-            user.teams.forEach(team=>{
-                database.ref('/teams/' + team).once('value').then(snap => {
-                    let teamKey = team,
-                        teamObj = snap.val(),
-                        teamName = teamObj.name;
-
-                    var teamLink = doc.createElement('a');
-
-                    teamLink.setAttribute('data-key', teamKey);
-
-                    teamLink.textContent = teamName;
-
-                    teamLink.addEventListener('mouseover', showTeam);
-
-                    teamLink.addEventListener('mouseout', hideTeamShowcase);
-
-                    teamLink.href = '#teamshowcase';
-
-                    teams.appendChild(teamLink);
-
-                    if(!teamsObj.hasOwnProperty(teamName)){
-                        teamsObj[teamKey] = teamObj;
-                    }
-                }).catch(err => {
-                    console.log('Error', err);
-                });
-            });
-        }
-
-        tr.appendChild(username);
-        tr.appendChild(email);
-        tr.appendChild(age);
-        tr.appendChild(teams);
-        tr.appendChild(progress);
-        tr.appendChild(phone);
-
-        usersTable.appendChild(tr);
-    }
-
-    function showTeam(e){
-        e.preventDefault();
-
-        var el = e.currentTarget,
-            teamKey = el.getAttribute('data-key'),
-            teamObj = teamsObj[teamKey];
-
-        teamShowcaseBox.style.display = 'block';
-        teamShowcaseBox.style.left = offset(el).left + 'px';
-        teamShowcaseBox.style.top = offset(el).top + 'px';
-
-        var teamName = doc.getElementById('team-name'),
-            teamLeader =  doc.getElementById('team-leader'),
-            teamMembers = doc.getElementById('team-members'),
-            teamDateRegistered = doc.getElementById('team-date-registered');
-
-        while(teamMembers.firstChild){
-            teamMembers.firstChild.remove();
-        }
-
-        teamName.textContent = teamObj.name;
-
-        database.ref('/users/' + teamObj.leaderId).once('value').then(snap => {
-            teamLeader.textContent = snap.val().name;
-        });
-
-        teamObj.members.forEach(member => {
-            database.ref('/users/' + member).once('value').then(snap=> {
-                var memberLi = doc.createElement('li');
-
-                memberLi.textContent = snap.val().name;
-
-                teamMembers.appendChild(memberLi);
-            });
-        });
-
-        teamDateRegistered.textContent = (new Date(teamObj.registeredTimestamp)).toString();
-    }
-
-    function hideTeamShowcase(e){
-        teamShowcaseBox.style.display = 'none';
-    }
-
-    function offset(el) {
-        var rect = el.getBoundingClientRect(),
-        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
-    }
-
-    navBtns.forEach(btn => {
-        btn.addEventListener('click', openPage);
-    });
-
-    function openPage(e){
-        var el = e.currentTarget,
-            pageToOpen = el.getAttribute('data-for'),
-            page = doc.querySelector('[data-page="' + pageToOpen + '"]');
-
-        pages.forEach(page => {
-            page.style.display = 'none';
-        });
-        
-        page.style.display = 'block';
     }
 
     var formNames = [{name: 'create-game', method: createGame}, {name: 'edit-game', method: editGame}],
@@ -403,6 +212,16 @@
         console.log('.' + popUpName);
 
         popUp.style.display = 'block';
+    }
+
+    function closePopUp(e){
+        e.preventDefault();
+
+        var el = e.currentTarget,
+            popUpName = el.getAttribute('data-popupname'),
+            popUp = doc.querySelector('.' + popUpName);
+
+        popUp.style.display = 'none';
     }
 
     function populatePopUp(e){
@@ -464,7 +283,6 @@
             gameEndTimestamp = new Date(gameEnd).getTime();
 
         gamesRef.child(key).update({
-            chapters: {},
             name: gameName,
             coverImageUrl: coverImg, 
             gameStoryDetails: gameStory,
@@ -480,16 +298,6 @@
         });
 
         closeBtn.click();
-    }
-
-    function closePopUp(e){
-        e.preventDefault();
-
-        var el = e.currentTarget,
-            popUpName = el.getAttribute('data-popupname'),
-            popUp = doc.querySelector('.' + popUpName);
-
-        popUp.style.display = 'none';
     }
 
     function createGame(e){
@@ -520,7 +328,7 @@
             gameEndTimestamp = new Date(gameEnd).getTime();
 
         gamesRef.push().set({
-            chapters: {},
+            chapters: {empty: true},
             name: gameName,
             coverImageUrl: coverImg, 
             gameStoryDetails: gameStory,
