@@ -245,3 +245,28 @@ button{
     font-size: 1.6rem;
     background-color: #000;
 }
+
+#game_name{
+    text-align: center;
+    margin: 25px 0;
+}
+
+#game_chapters{
+    margin-top: 50px;
+}
+
+#game_chapters > p{
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.chapters-action{
+    padding: 0 25px;
+}
+
+#add_chapter{
+    line-height: 50px;
+    background-color: #000;
+    color: #fff;
+    padding: 0 25px;
+}

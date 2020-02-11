@@ -11,12 +11,12 @@
                     <p class="game_end"></p>
                     <p class="game_start"></p>
                     <p class="game_story"></p>
-                    <a class="help_link"></a>
+                    <a class="help_link">Help Link</a>
                     <p class="help_number"></p>
-                    <a class="map_link"></a>
+                    <a class="map_link">Map Link</a>
                     <p class="max_players"></p>
                     <p class="min_players"></p>
-                    <a class="start_img_link"></a>
+                    <a class="start_img_link">Start image link</a>
                     <p class="start_password"></p>
                     <div class="actions">
                     </div>
@@ -60,11 +60,10 @@
                         <input type="number" name="min_players" min="1" placeholder="Min Players" required>
                         <input type="text" name="start_img_link" placeholder="Start image link" required>
                         <input type="password" name="start_pass" placeholder="Start Password" required>
-                        <input type="submit" name="add_game" value="Add Game">
+                        <input type="submit" name="add_game" value="Edit Game">
                     </div>
                 </form>
             </div>
-            
         </main>
 @endsection
 @section('js')

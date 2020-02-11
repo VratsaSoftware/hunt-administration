@@ -27,6 +27,10 @@ Route::get('/games', function () {
     return view('games');
 });
 
+Route::get('/chapters', function() {
+    return view('chapters');
+});
+
 Route::post('/games', 'FirebaseContriller@index');
 Route::post('/teams', 'FirebaseContriller@teams');
 Route::post('/users', 'FirebaseContriller@users');
